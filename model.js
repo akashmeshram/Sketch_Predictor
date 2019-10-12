@@ -29,7 +29,7 @@ function success(data) {
 
 async function start() {
 
-    model = await tf.loadModel('./model/model.json')
+    model = await tf.loadLayersModel('./model/model.json')
 
     model.predict(tf.zeros([1, 28, 28, 1]))
 
@@ -39,7 +39,8 @@ async function start() {
 }
 
 function allowDrawing() {
-    loop();
+    canvas.isDrawingMode = 1;
+    canvas.freeDrawingBrush.width = 10;
 }
 
 
@@ -50,9 +51,8 @@ function allowDrawing() {
 
 function getData() {
     mbb = boundingBox();
-    let index;
-    imgData = $(".p5Canvas")[0].getContext('2d').getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
-        (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
+    imgData = canvas.contextContainer.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
+                (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
     return imgData;
 }
 
@@ -64,9 +64,18 @@ function boundingBox() {
         return p.y;
     });
 
+    var min_coords = {
+        x: Math.min.apply(null, cX),
+        y: Math.min.apply(null, cY)
+    }
+    var max_coords = {
+        x: Math.max.apply(null, cX),
+        y: Math.max.apply(null, cY)
+    }
+
     return {
-        min: createVector(min(cX), min(cY)),
-        max: createVector(max(cX), max(cY))
+        min: min_coords,
+        max: max_coords
     };
 }
 
@@ -131,8 +140,9 @@ function getClassNames(indices) {
 }
 
 function setTable(top5, probs) {
+    var total = probs.reduce((a, b) => a + b, 0) 
     for (var i = 0; i < top5.length; i++) {
         $("#d" + i + " h2").text(top5[i]);
-        $("#d" + i + " h3").text(Math.round(probs[i] * 100) + "%");
+        $("#d" + i + " h3").text(Math.round((probs[i]/total) * 10000)/100 + "%");        
     }
 }

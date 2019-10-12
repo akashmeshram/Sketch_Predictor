@@ -1,33 +1,42 @@
 let coords = [];
-let imgData;
+let canvas;
+let mousePressed = false;
 
-function setup() {
-    let ctx = createCanvas(300, 300);
-    ctx.parent('drawing');
-    background(255);
-    stroke(0);
-    strokeWeight(10);
-    let button = createButton('CLEAR');
-    button.parent("control");
-    button.mousePressed(clean);
-    noLoop();
-}
+// setup
+$(function() {
+    canvas = window._canvas = new fabric.Canvas('canvas');
+    canvas.backgroundColor = '#ffffff';
+    canvas.isDrawingMode = 0;
+    canvas.freeDrawingBrush.color = "black";
+    canvas.freeDrawingBrush.width = 10;
+    canvas.renderAll();
+    
+    canvas.on('mouse:up', function(e) {
+        mouseReleased();
+        mousePressed = false
+    });
+    canvas.on('mouse:down', function(e) {
+        mousePressed = true
+    });
+    canvas.on('mouse:move', function(e) {
+        draw(e)
+    });
+})
 
 function draw() {
-    if (mouseIsPressed) {
-        if (mouseX > 0 && mouseX < width &&
-            mouseY > 0 && mouseY < height) {
-            point(mouseX, mouseY);
-            coords.push(createVector(mouseX, mouseY));
-            line(mouseX, mouseY, pmouseX, pmouseY);
-        }
+    var pointer = canvas.getPointer(event.e);
+    var posX = pointer.x;
+    var posY = pointer.y;
+
+    if (posX >= 0 && posY >= 0 && mousePressed) {
+        coords.push(pointer)
     }
 }
 
 function clean() {
-    imgData = [];
+    canvas.clear();
+    canvas.backgroundColor = '#ffffff';
     coords = [];
-    background(255);
     for (var i = 0; i < 5; i++) {
         $("#d" + i + " h2").text("--");
         $("#d" + i + " h3").text("00");
