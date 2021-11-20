@@ -1,65 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Sketch Predictor</title>
+  <head>
+    <title>Sketch Predictor</title>
 
-	<link rel="icon" type="image/png" sizes="32x32" href="./favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon.ico" />
 
+    <link rel="stylesheet" type="text/css" href="./reset.css" />
+    <link rel="stylesheet" type="text/css" href="./main.css" />
 
-	<link rel="stylesheet" type="text/css" href="./reset.css">
-	<link rel="stylesheet" type="text/css" href="./main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/0.15.3/tf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+  </head>
+  <body>
+    <header class="parent">
+      <h1>SKETCH PREDICTOR</h1>
+    </header>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/0.15.3/tf.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.1/d3.min.js"></script>
-</head>
-<body>
+    <div id="board" class="parent">
+      <div id="drawing"></div>
+      <div id="chart" class="parent">
+        <div id="d0">
+          <h2>--</h2>
+          <h3>100</h3>
+        </div>
+        <div id="d1">
+          <h2>--</h2>
+          <h3>100</h3>
+        </div>
+        <div id="d2">
+          <h2>--</h2>
+          <h3>100</h3>
+        </div>
+        <div id="d3">
+          <h2>--</h2>
+          <h3>100</h3>
+        </div>
+        <div id="d4">
+          <h2>--</h2>
+          <h3>100</h3>
+        </div>
+      </div>
+    </div>
 
-	<header class="parent">
-		<h1>SKETCH PREDICTOR</h1>
-	</header>
+    <div id="control" class="parent"></div>
+  </body>
 
-	<div id="board" class="parent">
-		<div id="drawing"></div>
-		<div id="chart" class="parent">
-			<div id="d0">
-				<h2>-- </h2>
-				<h3>100 </h3>
-			</div>
-			<div id="d1">
-				<h2>-- </h2>
-				<h3>100 </h3>
-			</div>
-			<div id="d2">
-				<h2>-- </h2>
-				<h3>100 </h3>
-			</div>
-			<div id="d3">
-				<h2>-- </h2>
-				<h3>100 </h3>
-			</div>
-			<div id="d4">
-				<h2>-- </h2>
-				<h3>100 </h3>
-			</div>
-		</div>
-	</div>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"
+  ></script>
 
-	<div id="control" class="parent"></div>
+  <script src="./sketch.js"></script>
+  <script src="./model.js"></script>
 
-</body>
-
-	<script
-	src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
-
-	<script src="./sketch.js"></script>
-	<script src="./model.js"></script>
-	
-	<script type="text/javascript">
-		start();
-	</script>
-
+  <script type="text/javascript">
+    start();
+  </script>
 </html>
