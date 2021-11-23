@@ -75,6 +75,7 @@ class UI extends EventEmitter {
   }
 
   set predictionTable(data) {
+    this.tabel.innerHTML = "";
     data.slice(0, 5).map(({ index, probability }) => {
       const row = document.createElement("tr");
       const rank = document.createElement("td");
